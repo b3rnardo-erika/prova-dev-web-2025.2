@@ -1,0 +1,32 @@
+{% extends "venda/base.html" %}
+
+{% block conteudo %}
+
+<h2>CUPOM FISCAL</h2>
+
+<p><b>CPF:</b> {{ venda.cpf_comprador }}</p>
+<p><b>Data:</b> {{ venda.data }}</p>
+
+<table border="1">
+    <tr>
+        <th>#</th>
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>Valor Unitário</th>
+        <th>Total</th>
+    </tr>
+
+    {% for item in itens %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ item.produto.descricao }}</td>
+        <td>{{ item.quantidade }}</td>
+        <td>{{ item.produto.valor_unitario }}</td>
+        <td>{{ item.total_item }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Total da Venda: {{ total }}</h3>
+
+{% endblock %}

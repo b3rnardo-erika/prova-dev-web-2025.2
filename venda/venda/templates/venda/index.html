@@ -1,0 +1,35 @@
+{% extends 'venda/base.html' %}
+
+{% block conteudo %}
+
+<h2>Lista das Vendas Registradas</h2>
+
+{% if pesquisa %}
+<h3>
+    Vendas com CPF contendo o termo: "{{ termo }}"
+    (<a href="{% url 'venda:index' %}">remover filtro</a>)
+</h3>
+{% else %}
+<form method="post">
+    {% csrf_token %}
+    Pesquisar por CPF (trecho):
+    <input type="text" name="cpf">
+    <input type="submit" value="Pesquisar">
+</form>
+{% endif %}
+
+{% if lista %}
+<ol>
+    {% for venda in lista %}
+    <li>
+        Venda para o CPF {{ venda.cpf_comprador }},
+        realizada em {{ venda.data|date:"d/m/Y - H:i:s" }}
+        - <a href="{% url 'venda:venda' venda.id %}">Clique para detalhar</a>
+    </li>
+    {% endfor %}
+</ol>
+{% else %}
+<h3>Nenhuma venda registrada!</h3>
+{% endif %}
+
+{% endblock %}
